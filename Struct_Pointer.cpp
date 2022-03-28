@@ -1,4 +1,5 @@
 #include<iostream>
+#include<conio.h>
 using namespace std;
 struct student
 {
@@ -15,5 +16,6 @@ int main()
     s=&s1;
     cout<<s->name<<endl;  // s->name = (*s).name
     cout<<(*s).roll_num<<endl;
-
+getch();
+return 0;
 }
