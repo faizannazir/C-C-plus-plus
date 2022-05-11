@@ -1,54 +1,64 @@
-#include<iostream>
+ #include<iostream>
 #include<conio.h>
 using namespace std;
- 
-// Solving Length problem in struct to make it like list
-// node will contain its own value and a pointer
-// node is like a list but of same data type
-class node
+
+class Node
 {
     private:
     int val;
-    node *next;  // Pointer will point next node
+    Node *next = NULL;  
     public:
-    node createHead(int val, node *head)
+    Node * createHead(int val, Node *head)
     {
-        head = new node;
-        head->val = val;
-        head->next = NULL;
+        Node *n;   
+        n = new Node;    
+        n->val = val;
+        n->next = NULL;
+        head = n;
+        return n;
     }
-    node currentNode(int val, node *current)
+    Node* currentNode(int val, Node *current)
     {
-        current = new node; 
-    // pointer next of head node is equal to current pointer(equal to address of current node)
-       // head->next= current;
-    // assign value to current node
-        current->val= 1;
-    // initialize node pointer of current node with NULL
-        current->next = NULL;
-    }
-
+        Node *n;  
+        n=new Node;     
+        n->val = val;
+        n->next = NULL;
+        current->next= n;
+        return n;
+}
+    void print(Node *current)
+    {
+        cout<<"[";
+        while (current->next!=NULL)
+        {
+             cout<<"value = "<< current->val<<",   ";
+             cout<<"next = "<< current->next<<",   "<<endl;
+             current = current->next;
+        }
+        cout<<"value = "<<current->val<<"     next = "  << current->next <<endl;
+        cout<<"]";
+     }
 };
 
 int main()
 {
-    node *head , *current;      // Pointer of type node 
-    int val;
-    head->createHead(val=5,NULL);
-    // head = NULL;      // initialized a pointer with NULL value
-    // head = new node;   // create a node and return its address
-    // head->val = 0;
-    // head->next = NULL;     // Initialize Node pointer with NULL
-
-    // // create new node using new keyword and assign it address to current pointer 
-    // current = new node; 
-    // // pointer next of head node is equal to current pointer(equal to address of current node)
-    // head->next= current;
-    // // assign value to current node
-    // current->val= 1;
-    // // initialize node pointer of current node with NULL
-    // current->next = NULL;
-
-    cout<<"["<<head->val<<","<<current->val<<"]"<<endl;
+    Node *head , *current;      
+    head = NULL;
+    current = head;
+    for (int i = 0; i < 5; i++)
+    {
+     if(head == NULL)
+    {
+       head = current->createHead(i,current); 
+       current = head;
+    }
+    else
+    {
+         current = current->currentNode(i,current);
+        //  cout<<current->val<<current->next<<endl;
+    }
+    }
+    current = head;
+    current->print(current);
 
 }
